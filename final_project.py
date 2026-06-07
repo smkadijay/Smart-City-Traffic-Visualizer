@@ -623,6 +623,17 @@ def update(v):
     glutPostRedisplay()
     glutTimerFunc(16, update, 0)
 
+def draw_hud():
+    sc={"phase0":"H: GREEN  V: RED","phase1":"H: RED    V: GREEN"}
+    tc=(0.04,0.04,0.08)
+    rect(8,8,420,100,tc)
+    text(16,76,"UrbanFlow - Smart City Traffic Visualizer",(0.90,0.88,0.84),GLUT_BITMAP_HELVETICA_18)
+    text(16,55,"Track C  |  Game & Graphics  |  CSE, LU",(0.65,0.62,0.58),GLUT_BITMAP_HELVETICA_12)
+    sc_col=(0.22,0.90,0.30) if phase==0 else (0.90,0.25,0.25)
+    text(16,34,sc["phase"+str(phase)],sc_col,GLUT_BITMAP_HELVETICA_12)
+    mc=(0.90,0.84,0.60) if night else (0.85,0.90,1.00)
+    text(16,16,"Mode: "+("NIGHT" if night else "DAY"),mc,GLUT_BITMAP_HELVETICA_12)
+
 
 def display():
     glClear(GL_COLOR_BUFFER_BIT)
@@ -654,6 +665,7 @@ def display():
         if car["dir"] == "H": draw_h_car(car["x"], car["y"], car["col"])
         else:                  draw_v_car(car["x"], car["y"], car["col"])
 
+    draw_hud()
     glutSwapBuffers()
 
 
